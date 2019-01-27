@@ -15,30 +15,36 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/src/style.css" />
-    <title>Adil's App</title>
+    <title>Game of Life</title>
   </head>
   <body>
-    <main class="wrapper">
+    <main id="wrapper">
       <header class="masthead">
-        <h1><a href="#">Adil Zeshan</a></h1>
+        <h1><a href="#">Conway's Game of Life</a></h1>
       </header>
 
-      <section class="skills">
-        <ul>
-          <li><i class="fab fa-html5 fa-3x"></i></li>
-          <li><i class="fab fa-css3 fa-3x"></i></li>
-          <li><i class="fab fa-js fa-3x"></i></li>
-          <li><i class="fab fa-react fa-3x"></i></li>
-          <li><i class="fab fa-node fa-3x"></i></li>
-        </ul>
+      <section id="controls">
+        <button id="start"><i class="fas fa-play-circle fa-4x"></i></button>
+        <button id="pause"><i class="fas fa-pause-circle fa-4x"></i></button>
+        <button id="clear"><i class="fas fa-minus-circle fa-4x"></i></button>
+        <button id="random"><i class="fas fa-random fa-4x"></i></button>
+        <label id="generation"></label>
       </section>
 
-      <section class="portfolio"></section>
+      <section id="grid"></section>
 
-      <section class="hero">
-        <img src="http://lorempixel.com/1000/600/nature" />
-      </section>
-      <footer><p>&copy; Adil Zeshan</p></footer>
+      <footer>
+        <p>
+          Built by
+          <a href="https://adilzeshan.com" target="_blank">Adil Zeshan</a>
+        </p>
+        <p>
+          Source code: <br />
+          <a href="https://github.com/adilzeshan/game-of-life" target="_blank">
+            <i class="fab fa-github fa-2x"></i>
+          </a>
+        </p>
+      </footer>
     </main>
   </body>
 </html>
