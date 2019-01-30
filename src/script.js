@@ -6,6 +6,7 @@ const controller = {
     this.initialiseEngine();
     view.setUpEventListeners();
     view.createGrid();
+    view.randomiseGrid();
   },
 
   initialiseEngine: function() {
