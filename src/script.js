@@ -40,62 +40,53 @@ const controller = {
 
 const view = {
   setUpEventListeners() {
-    document.getElementById("grid").addEventListener("click", event => {
-      if (event.target.nodeName === "TD") {
-        const [row, col] = event.target.id.split("_");
+    document.getElementById("grid").addEventListener("click", this.selectCell);
+    document.getElementById("start").addEventListener("click", this.startGame);
+    document.getElementById("pause").addEventListener("click", this.pauseGame);
+    document.getElementById("clear").addEventListener("click", this.resetGame);
+    document
+      .getElementById("random")
+      .addEventListener("click", this.randomiseGrid);
+  },
 
-        if (event.target.className === "dead") {
-          event.target.className = "live";
-          controller.grid.makeCellLive(row, col);
-        } else {
-          event.target.className = "dead";
-          controller.grid.killCell(row, col);
-        }
-      }
-    });
+  selectCell(event) {
+    if (event.target.nodeName === "TD") {
+      const [row, col] = event.target.id.split("_");
 
-    document.getElementById("start").addEventListener("click", () => {
-      if (controller.gamePlayStatus.get()) {
-        controller.resetGame();
+      if (event.target.className === "dead") {
+        event.target.className = "live";
+        controller.grid.makeCellLive(row, col);
       } else {
-        controller.gamePlayStatus.resume();
-        document.getElementById("start").style.display = "none";
-        document.getElementById("pause").style.display = "inline";
-        controller.playGame();
+        event.target.className = "dead";
+        controller.grid.killCell(row, col);
       }
-    });
+    }
+  },
 
-    document.getElementById("pause").addEventListener("click", () => {
-      if (controller.gamePlayStatus.get()) {
-        controller.gamePlayStatus.suspend();
-        document.getElementById("pause").style.display = "none";
-        document.getElementById("start").style.display = "inline";
-        cancelAnimationFrame(controller.timer);
-      }
-    });
+  startGame() {
+    if (controller.gamePlayStatus.get()) {
+      controller.resetGame();
+    } else {
+      controller.gamePlayStatus.resume();
+      document.getElementById("start").style.display = "none";
+      document.getElementById("pause").style.display = "inline";
+      controller.playGame();
+    }
+  },
 
-    document.getElementById("clear").addEventListener("click", () => {
+  pauseGame() {
+    if (controller.gamePlayStatus.get()) {
+      controller.gamePlayStatus.suspend();
       document.getElementById("pause").style.display = "none";
       document.getElementById("start").style.display = "inline";
-      controller.resetGame();
-    });
+      cancelAnimationFrame(controller.timer);
+    }
+  },
 
-    document.getElementById("random").addEventListener("click", () => {
-      document.getElementById("pause").style.display = "none";
-      document.getElementById("start").style.display = "inline";
-      controller.resetGame();
-
-      for (let i = 0; i < controller.grid.rows; i++) {
-        for (let j = 0; j < controller.grid.cols; j++) {
-          const isLive = Math.round(Math.random());
-          if (isLive) {
-            const cell = document.getElementById(i + "_" + j);
-            cell.className = "live";
-            controller.grid.makeCellLive(i, j);
-          }
-        }
-      }
-    });
+  resetGame() {
+    document.getElementById("pause").style.display = "none";
+    document.getElementById("start").style.display = "inline";
+    controller.resetGame();
   },
 
   createGrid() {
@@ -132,6 +123,23 @@ const view = {
     const liveCells = Array.from(document.getElementsByClassName("live"));
     for (let i = 0; i < liveCells.length; i++) {
       liveCells[i].className = "dead";
+    }
+  },
+
+  randomiseGrid() {
+    document.getElementById("pause").style.display = "none";
+    document.getElementById("start").style.display = "inline";
+    controller.resetGame();
+
+    for (let i = 0; i < controller.grid.rows; i++) {
+      for (let j = 0; j < controller.grid.cols; j++) {
+        const isLive = Math.round(Math.random());
+        if (isLive) {
+          const cell = document.getElementById(i + "_" + j);
+          cell.className = "live";
+          controller.grid.makeCellLive(i, j);
+        }
+      }
     }
   },
 
