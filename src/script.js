@@ -2,9 +2,9 @@
 
 const controller = {
   initialiseApp: function() {
-    this.setUpEventListeners();
     this.grid = model.initialiseGrid(50, 100);
     this.initialiseEngine();
+    view.setUpEventListeners();
     view.createGrid();
   },
 
@@ -33,10 +33,12 @@ const controller = {
     this.gamePlayStatus.suspend();
     this.generationNo.reset();
     this.grid.reset();
-  },
+  }
+};
 
-  // Setting up event listeners
+// VIEW
 
+const view = {
   setUpEventListeners() {
     document.getElementById("grid").addEventListener("click", event => {
       if (event.target.nodeName === "TD") {
@@ -94,12 +96,8 @@ const controller = {
         }
       }
     });
-  }
-};
+  },
 
-// VIEW
-
-const view = {
   createGrid() {
     const grid = document.getElementById("grid");
     const table = document.createElement("table");
