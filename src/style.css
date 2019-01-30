@@ -72,26 +72,3 @@ footer a {
   color: whitesmoke;
   font-size: 1em;
 }
-
-#grid {
-  background-image: linear-gradient(260deg, #eee 0%, whitesmoke 100%);
-}
-
-table {
-  background-color: #eee;
-  border-spacing: 0px;
-}
-
-td {
-  border: 0.5px solid whitesmoke;
-  width: 10px;
-  height: 10px;
-}
-
-td.dead {
-  background-color: transparent;
-}
-
-td.live {
-  background-color: #c6e48b;
-}

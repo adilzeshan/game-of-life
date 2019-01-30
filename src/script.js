@@ -41,27 +41,44 @@ const controller = {
 
 const view = {
   setUpEventListeners() {
-    document.getElementById("grid").addEventListener("click", this.selectCell);
-    document.getElementById("start").addEventListener("click", this.startGame);
-    document.getElementById("pause").addEventListener("click", this.pauseGame);
-    document.getElementById("clear").addEventListener("click", this.resetGame);
-    document
-      .getElementById("random")
-      .addEventListener("click", this.randomiseGrid);
+    const canvas = document.getElementById("canvas-grid");
+    const start = document.getElementById("start");
+    const pause = document.getElementById("pause");
+    const clear = document.getElementById("clear");
+    const random = document.getElementById("random");
+
+    canvas.addEventListener("click", this.selectCell.bind(this));
+    start.addEventListener("click", this.startGame);
+    pause.addEventListener("click", this.pauseGame);
+    clear.addEventListener("click", this.resetGame);
+    random.addEventListener("click", this.randomiseGrid.bind(this));
   },
 
   selectCell(event) {
-    if (event.target.nodeName === "TD") {
-      const [row, col] = event.target.id.split("_");
+    const context = this.grid.context;
+    const cellSize = this.grid.cellSize;
 
-      if (event.target.className === "dead") {
-        event.target.className = "live";
-        controller.grid.makeCellLive(row, col);
-      } else {
-        event.target.className = "dead";
-        controller.grid.killCell(row, col);
-      }
+    var x = event.offsetX;
+    var y = event.offsetY;
+
+    var i = x - (x % cellSize);
+    var j = y - (y % cellSize);
+
+    var col = Math.round(i / cellSize, 0);
+    var row = Math.round(j / cellSize, 0);
+
+    if (controller.grid.isCellLive(row, col)) {
+      context.fillStyle = "#eee";
+      controller.grid.killCell(row, col);
+    } else {
+      context.fillStyle = "#c6e48b";
+      controller.grid.makeCellLive(row, col);
     }
+
+    context.strokeStyle = "whitesmoke";
+    context.strokeRect(i, j, cellSize - 1, cellSize - 1);
+
+    context.fillRect(i, j, cellSize - 2, cellSize - 2);
   },
 
   startGame() {
@@ -91,39 +108,57 @@ const view = {
   },
 
   createGrid() {
-    const grid = document.getElementById("grid");
-    const table = document.createElement("table");
+    this.grid = {};
+    this.grid.canvas = document.getElementById("canvas-grid");
+    this.grid.context = this.grid.canvas.getContext("2d");
+    this.grid.cellSize = 10;
+    this.grid.canvas.width = controller.grid.cols * this.grid.cellSize;
+    this.grid.canvas.height = controller.grid.rows * this.grid.cellSize;
 
-    for (let i = 0; i < controller.grid.rows; i++) {
-      let tr = document.createElement("tr");
-      for (let j = 0; j < controller.grid.cols; j++) {
-        let cell = document.createElement("td");
-        cell.id = i + "_" + j;
-        cell.className = "dead";
-        tr.appendChild(cell);
-      }
-      table.appendChild(tr);
-    }
-    grid.appendChild(table);
+    this.clearGrid();
   },
 
   updateGrid() {
-    for (let i = 0; i < controller.grid.rows; i++) {
-      for (let j = 0; j < controller.grid.cols; j++) {
-        let cell = document.getElementById(i + "_" + j);
-        if (controller.grid.isCellLive(i, j)) {
-          cell.className = "live";
+    const canvas = this.grid.canvas;
+    const context = this.grid.context;
+    const cellSize = this.grid.cellSize;
+
+    let row = 0;
+    let col = 0;
+
+    for (let i = 0; i < canvas.width; i += cellSize) {
+      for (let j = 0; j < canvas.height; j += cellSize) {
+        col = Math.round(i / cellSize, 0);
+        row = Math.round(j / cellSize, 0);
+
+        if (controller.grid.isCellLive(row, col)) {
+          context.fillStyle = "#c6e48b";
         } else {
-          cell.className = "dead";
+          context.fillStyle = "#eee";
         }
+
+        context.strokeStyle = "whitesmoke";
+        context.strokeRect(i, j, cellSize - 1, cellSize - 1);
+
+        context.fillRect(i, j, cellSize - 2, cellSize - 2);
       }
     }
   },
 
   clearGrid() {
-    const liveCells = Array.from(document.getElementsByClassName("live"));
-    for (let i = 0; i < liveCells.length; i++) {
-      liveCells[i].className = "dead";
+    const canvas = this.grid.canvas;
+    const context = this.grid.context;
+    const cellSize = this.grid.cellSize;
+
+    context.strokeStyle = "whitesmoke";
+    context.fillStyle = "#eee";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < canvas.width; i += cellSize) {
+      for (let j = 0; j < canvas.height; j += cellSize) {
+        context.strokeRect(i, j, cellSize - 1, cellSize - 1);
+        context.fillRect(i, j, cellSize - 2, cellSize - 2);
+      }
     }
   },
 
@@ -132,13 +167,23 @@ const view = {
     document.getElementById("start").style.display = "inline";
     controller.resetGame();
 
-    for (let i = 0; i < controller.grid.rows; i++) {
-      for (let j = 0; j < controller.grid.cols; j++) {
-        const isLive = Math.round(Math.random());
+    const canvas = this.grid.canvas;
+    const context = this.grid.context;
+    const cellSize = this.grid.cellSize;
+
+    let row = 0;
+    let col = 0;
+
+    for (let i = 0; i < canvas.width; i += cellSize) {
+      for (let j = 0; j < canvas.height; j += cellSize) {
+        var isLive = Math.round(Math.random());
         if (isLive) {
-          const cell = document.getElementById(i + "_" + j);
-          cell.className = "live";
-          controller.grid.makeCellLive(i, j);
+          col = Math.round(i / cellSize, 0);
+          row = Math.round(j / cellSize, 0);
+
+          context.fillStyle = "#c6e48b";
+          context.fillRect(i, j, cellSize - 2, cellSize - 2);
+          controller.grid.makeCellLive(row, col);
         }
       }
     }
