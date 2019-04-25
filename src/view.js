@@ -1,4 +1,4 @@
-import controller from "./script";
+import controller from "./controller";
 
 // VIEW
 
