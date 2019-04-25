@@ -41,6 +41,8 @@ body {
 }
 
 #controls {
+  margin-bottom: 20px;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,7 +63,14 @@ label {
   display: none;
 }
 
-section,
+section {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  color: white;
+  font-weight: 100;
+}
+
 footer {
   text-align: center;
   background: rgba(0, 0, 0, 0.4);
