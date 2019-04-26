@@ -1,5 +1,5 @@
-import model from "./model";
-import view from "./view";
+import model from "../models/model";
+import view from "../views/view";
 
 // CONTROLLER
 

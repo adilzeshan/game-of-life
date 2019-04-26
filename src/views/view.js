@@ -1,4 +1,4 @@
-import controller from "./controller";
+import controller from "../controllers/controller";
 
 // VIEW
 
