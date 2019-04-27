@@ -1,5 +1,5 @@
-import model from "../models/model";
-import view from "../views/view";
+import model from '../models/model';
+import view from '../views/view';
 
 // CONTROLLER
 
@@ -25,7 +25,9 @@ const controller = {
     view.updateGrid();
 
     if (controller.gamePlayStatus.get()) {
-      this.timer = requestAnimationFrame(() => this.playGame());
+      this.timer = requestAnimationFrame(function() {
+        controller.playGame();
+      });
     }
   },
 

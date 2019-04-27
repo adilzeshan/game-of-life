@@ -1,4 +1,4 @@
-import games from "./games";
+import games from './games';
 
 // MODEL
 
