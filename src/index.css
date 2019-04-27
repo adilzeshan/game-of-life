@@ -8,6 +8,24 @@ html {
   box-sizing: inherit;
 }
 
+@font-face {
+  font-family: 'Cinzel';
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF; /* Download only latin glyphs */
+  src: local('Cinzel'), url('fonts/Cinzel-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF; /* Download only latin glyphs */
+  src: local('Lato'), url('fonts/Lato-Regular.ttf') format('truetype');
+}
+
 body {
   font-family: "Cinzel", serif;
   margin: 0;

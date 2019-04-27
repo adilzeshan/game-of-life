@@ -1,5 +1,11 @@
 {
-  "extends": ["eslint:recommended", "plugin:import/errors", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "prettier",
+    "plugin:@getify/proper-arrows/getify-says",
+    "plugin:@getify/proper-ternary/getify-says"
+  ],
   "rules": {
     "no-console": "warn"
   },
