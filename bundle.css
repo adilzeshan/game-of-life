@@ -58,10 +58,15 @@ body {
   background: rgba(0, 0, 0, 0.3);
 }
 
+#description {
+  font-family: 'Lato';
+}
+
 #controls {
   margin-bottom: 20px;
 
   display: flex;
+
   justify-content: center;
   align-items: center;
 }
