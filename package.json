@@ -32,7 +32,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
-    "@getify/eslint-plugin-proper-arrows": "^8.0.1",
+    "@getify/eslint-plugin-proper-arrows": "^9.1.1",
     "@getify/eslint-plugin-proper-ternary": "^3.0.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
