@@ -30,7 +30,7 @@
   "author": "Adil Zeshan",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.4.3",
+    "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.4.3",
     "@getify/eslint-plugin-proper-arrows": "^8.0.1",
     "@getify/eslint-plugin-proper-ternary": "^3.0.1",
